@@ -6,10 +6,14 @@ function getProductList() {
 }
 
 function getTotalPrice(productList) {
-    return productList.reduce( (product, acc) => {
-        return acc + (product.price * product.count);
-    });
+     console.log("ProductList:", productList);
+     return productList.reduce( (acc, product) => {
+        return acc + product.price * product.count * (1 - product.discount);  
+    }, 0);  
 }
 
-const totalPrice = getTotalPrice( getProductList() );
-console.log(totalPrice); // prawidłowa wartość: 390.42 (należy zaaokrąglić do 2 miejsc po przecinku)
+//console.log( "Product:", product);
+
+const totalPrice = getTotalPrice( getProductList() ).toFixed(2);
+console.log(typeof totalPrice);
+console.log("Total price:", totalPrice); // prawidłowa wartość: 390.42 (należy zaaokrąglić do 2 miejsc po przecinku)
