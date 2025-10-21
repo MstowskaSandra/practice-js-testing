@@ -9,7 +9,7 @@ function getTotalPrice(productList) {
      console.log("ProductList:", productList);
      return productList.reduce( (acc, product) => {
         return acc + product.price * product.count * (1 - product.discount);  
-    }, 0);  
+     }, 0);  
 }
 
 //console.log( "Product:", product);
