@@ -6,5 +6,6 @@ export default function randomNumber(min, max) {
         throw new Error('Min should be less or equal to max');
     }
     if (min === max) return min;
-    return min;
+
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
