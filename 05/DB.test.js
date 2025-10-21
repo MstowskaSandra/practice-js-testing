@@ -127,4 +127,18 @@ describe('DB update', () => {
             expect(e).toBe('ID have to be set!');
         }
     });
-})
+
+    it('should reject the promise with the message "ID not found!" if the element with the provided ID does not exist', async () => {
+        expect.assertions(1);
+        try {
+            await db.update({ id: 999, name: 'Not found' });
+        } catch (e) {
+            expect(e).toBe('ID not found!');
+        }
+    });
+
+    it('should return Promise', () => {
+        const result = db.update({ id: 1, name: 'Test' });
+        expect(result).toBeInstanceOf(Promise);
+    });
+});
