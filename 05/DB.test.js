@@ -73,4 +73,58 @@ describe('DB select', () => {
         const result = db.select(1);
         expect(result).toBeInstanceOf(Promise);
     });
+});
+
+describe('DB remove', () => {
+    let db;
+
+    beforeEach(() => {
+        db = new DB();
+        db._rows = [
+            { id: 1, name: 'Test 1' },
+            { id: 2, name: 'Test 2' }
+        ];
+    });
+
+    it('should remove element with this ID and return appropriate message', async () => {
+        expect.assertions(1);
+        try {
+            await db.remove(999);
+        } catch (e) {
+            expect(e).toBe('Item not exist!');
+        }
+    });
+
+    it('should return Promise', () => {
+        const result = db.remove(1);
+        expect(result).toBeInstanceOf(Promise);
+    });
+});
+
+describe('DB update', () => {
+    let db;
+
+    beforeEach(() => {
+        db = new DB();
+        db._rows = [
+            { id: 1, name: 'Test 1' },
+            { id: 2, name: 'Test 2' }
+        ];
+    });
+
+    it('should update element by ID and return updated object', async () => {
+        const newData = { id: 1, name: 'Updated Test' };
+        const result = await db.update(newData);
+        expect(result).toEqual(newData);
+        expect(db._rows).toContainEqual(newData);
+    });
+
+    it('should rehect promise with the message "ID has to be set!" if data.id is not provided', async () => {
+        expect.assertions(1);
+        try {
+            await db.update({ name: 'No ID' });
+        } catch (e) {
+            expect(e).toBe('ID have to be set!');
+        }
+    });
 })
