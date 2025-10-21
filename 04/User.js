@@ -18,4 +18,8 @@ export default class User {
     getPassword() {
         return this.password;
     }
+
+    login() {
+        return this.email.endsWith('@devmentor.pl');
+    }
 }
