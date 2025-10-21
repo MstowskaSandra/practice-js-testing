@@ -119,7 +119,7 @@ describe('DB update', () => {
         expect(db._rows).toContainEqual(newData);
     });
 
-    it('should rehect promise with the message "ID has to be set!" if data.id is not provided', async () => {
+    it('should rehect promise with the message "ID have to be set!" if data.id is not provided', async () => {
         expect.assertions(1);
         try {
             await db.update({ name: 'No ID' });
@@ -140,5 +140,34 @@ describe('DB update', () => {
     it('should return Promise', () => {
         const result = db.update({ id: 1, name: 'Test' });
         expect(result).toBeInstanceOf(Promise);
+    });
+});
+
+
+describe('DB getRows', () => {
+    let db;
+
+    beforeEach(() => {
+        db = new DB();
+        db._rows = [
+            { id: 1, name: 'Test 1' },
+            { id: 2, name: 'Test 2' }
+        ];
+    });
+
+    it('should return all array _rows', async () => {
+        const result = await db.getRows();
+        expect(result).toEqual(db._rows);
+    });
+
+    it('should return Promise', () => {
+        const result = db.getRows();
+        expect(result).toBeInstanceOf(Promise);
+    });
+
+    it('should return empty array if _rows is empty', async () => {
+        db._rows = [];
+        const result = await db.getRows();
+        expect(result).toEqual([]);
     });
 });
